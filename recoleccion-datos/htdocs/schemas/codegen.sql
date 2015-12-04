@@ -32,3 +32,9 @@ INSERT INTO proyecto VALUES ('soulraster@gmail.com', 'estmat');
 INSERT INTO proyecto VALUES ('usuario@gmail.com', 'empven');
 INSERT INTO proyecto VALUES ('usuario@gmail.com', 'estmat');
 
+CREATE TABLE estado (
+    id varchar(5) PRIMARY KEY,
+    estado boolean not null
+);
+
+INSERT INTO estado VALUES ('anauj',false);
