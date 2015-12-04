@@ -1,5 +1,9 @@
 # anauj
 
+anauj is a source code generator of prototype web applications, is necessary 
+have a database schema from where it will generate the graphical user interface 
+and some CRUD functions.
+
 Before you run the application it is necessary to make the following changes:
 
   1. Install PostgreSQL database.
@@ -8,9 +12,9 @@ Before you run the application it is necessary to make the following changes:
   4. Create tables for codegen database from recoleccion-datos/htdocs/schemas/codegen.sql.
   5. Create schemas empven.sql and estmat.sql from recoleccion-datos/htdocs/schemas.
 
-Finally change the values to the constants in generacion-datos/conf.rkt
+Finally change the values to the constants in `generacion-datos/conf.rkt`
 by path where you copy the anauj project. For example my user is hmc and
-the project anauj (the three folders) is under /home/hmc/Documentos/racket-proy/codegen-arq/.
+the project anauj (the three folders) is under `/home/hmc/Documentos/racket-proy/codegen-arq/`.
 
 After you run the application
 
