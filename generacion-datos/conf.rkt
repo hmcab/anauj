@@ -6,6 +6,13 @@
 ; Tablas
 
 ;###############################
+; Codegen
+;###############################
+
+(define cmd "racket -t /home/hmc/Documentos/racket-proy/codegen-arq/generacion-datos/apps/")
+(define server-path "/home/hmc/Documentos/racket-proy/codegen-arq/recoleccion-datos/")
+
+;###############################
 ; Campos
 ;###############################
 

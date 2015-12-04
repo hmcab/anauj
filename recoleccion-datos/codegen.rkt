@@ -13,6 +13,7 @@
 (require "../generacion-datos/campos.rkt")
 (require "../generacion-datos/crud.rkt")
 (require "../generacion-datos/generador.rkt")
+(require "../generacion-datos/conf.rkt")
 
 (require 2htdp/batch-io) 
 
@@ -601,7 +602,7 @@
 	#t
 	#f))
 
-(define cmd "racket -t /home/hmc/Documentos/racket-proy/codegen-arq/generacion-datos/apps/")
+;(define cmd "racket -t /home/hmc/Documentos/racket-proy/codegen-arq/generacion-datos/apps/")
 
 ; kill :: string -> boolean
 ; Detiene ejecución de aplicación web prototipo previamente
@@ -1048,7 +1049,7 @@
 	"+ No es posible declarar un mismo campo más de 1 vez en cada instrucción." (br)(br)
 ))
 
-(define server-path "/home/hmc/Documentos/racket-proy/codegen-arq/recoleccion-datos/")
+;(define server-path "/home/hmc/Documentos/racket-proy/codegen-arq/recoleccion-datos/")
 (define path (build-path server-path))
 
 ; Configuración básica del servidor web donde se desplegará
