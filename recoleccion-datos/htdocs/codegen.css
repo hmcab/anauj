@@ -1,0 +1,708 @@
+
+/* >>> Codegen base */
+
+html, body {
+    margin:0;
+    padding:0;
+    background: #F9F9F9;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    
+    width: 100%;
+    height: 100%;
+}
+
+#li_logo {
+    /* width: 220px;
+    height: 30px;
+    padding: 10px;
+    color: #FFF;
+    background: #000;
+    z-index: 1001;
+    position:absolute; */
+    color: #FFF;
+    background: #000;
+}
+#div_session {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 100%;
+    color: #FFF;
+    background: #000;
+}
+#div_session form {
+    float: left;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Botones */
+#savebutton, #savecrud, #appbutton, #editbutton, #delbutton, #userbutton, #execbutton {
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    color: #FFF;
+}
+#savebutton {
+    background-image: url(/images/black-save-16.png); /* 16px x 16px */
+}
+#savecrud {
+    background-image: url(/images/black-database-16.png); /* 16px x 16px */
+}
+#appbutton {
+    background-image: url(/images/black-filled-box-16.png); /* 16px x 16px */
+}
+#editbutton {
+    background-image: url(/images/black-edit-16.png); /* 16px x 16px */
+    color: #000;
+}
+#delbutton {
+    background-image: url(/images/black-delete-16.png); /* 16px x 16px */
+    color: #000;
+}
+#userbutton {
+    background-image: url(/images/black-user-16.png); /* 16px x 16px */
+}
+
+#div_tablas {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 250px;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background: #000;
+    /* -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease; */
+}
+
+#div_contenido {
+    width: 70%;
+    float: left;
+    position: absolute;
+    /* padding: 15px; */
+    /* padding: top right bottom left */
+    padding: 0px 0px 0px 15px;
+    left: 250px;
+}
+
+#div_contenido .esqtab {
+    padding-right: 10px;
+}
+#div_contenido .stitulo {
+    padding-left: 3px;
+    padding-right: 3px;
+    background-color: #111;
+    border:#111 solid 0.5px;
+    color: #fff;
+}
+#div_contenido .svalor {
+    padding-left: 4px;
+    padding-right: 4px;
+    border:#111 solid 0.5px;
+}
+
+#div_campos {
+    /*
+    width: 70%;
+    float:left;
+    position: absolute;
+    padding: 15px;
+    left: 250px;
+    */
+    width:100%;
+    float:left;
+    padding-top:15px; 
+}
+
+#div_campos .campo {
+    /* width: 65%; */
+    float: left;
+    margin-top: 5px;
+}
+
+/*
+#div_campos span {
+    margin-left: 3%;
+}
+#div_campos span.titulo {
+    width: 20%;
+    float: left;
+}
+#div_campos span.entrada {
+    width: 60%;
+    float: left;
+}
+*/
+
+#table_campos {
+    border:#333 solid 0.5px;
+    border-collapse: collapse;
+    /* font-family:Arial; */
+    text-align:center;		
+    line-height: 2em;
+}
+
+#table_campos tr td.thd {background:#CCC;}
+#table_campos tr.alt {background:#FFFFCC;}
+#table_campos tr:hover {
+    background:#E6F3FF;
+}
+
+#div_titulo {
+    /* width: 100%; */
+    float: left;
+    margin-top: 45px;
+}
+#div_encendido {
+    float: left;
+    margin-top: 44px;
+    margin-left: 4px;
+    border: 0.5px solid #000000;
+}
+#div_titulo_enc {
+    float: left;
+    margin-top: 44px;
+    margin-left: 10px;
+    border: 0.5px solid #000000;
+}
+#div_info_acttabla {
+    float: left;
+    margin-top: 44px;
+    margin-left: 4px;
+}
+#div_encendido form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+#div_msgerror {
+    width: 100%;
+    float: left;
+    padding-top: 12px;
+    
+    font-family: verdana,sans-serif;
+    font-size: 11px;
+}
+#div_msgerror span {
+    color: red;
+}
+#div_form {
+    width: 100%;
+    float: left;
+    padding-top: 15px;
+}
+#formmodftablas, #formviewtablas {
+    width:8%;
+    float:left;
+}
+#div_form button {
+    width:8%;
+}
+
+/* lista de tablas */
+
+#ul_tablas {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#ul_tablas li {
+    width: 250px;
+	text-indent: 20px;
+    line-height: 40px;
+}
+#ul_tablas li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+#ul_tablas li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+#ul_tablas li a:active,
+#ul_tablas li a:focus {
+    text-decoration: none;
+}
+
+#li_info button {
+    margin-left: 200px;
+}
+
+#div_form {
+    width: 100%;
+    float: left;
+}
+#div_form form {
+    float: left;
+}
+#mtabla, #vtabla {
+    float: left;
+    width: 100px;
+    margin-right: 2px;
+}
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Form crud */
+
+#div_tabla_aux, #div_crud_per {
+    float: left;
+    width: 80%;
+    display: none;
+}
+
+#div_tabla, #div_tabla_per {
+    float: left;
+    width: 80%;
+    margin-top: 5px;
+}
+#tabla_crud, #tabla_crud_per {
+    float: left;
+    width: 80%;
+    border:#333 solid 0.5px;
+    border-collapse: collapse;
+    /* font-family:Arial; */
+    text-align: center;		
+    line-height: 2em;
+}
+#tabla_crud tr, #tabla_crud_per tr {
+    border-top:#333 solid 0.5px;
+}
+#tabla_crud th, #tabla_crud td,
+#tabla_crud_per th, #tabla_crud_per td {
+    border-left:#333 solid 0.5px;
+}
+
+/*
+#fcrud {
+    float: left;
+    width: 80%;
+    margin: 0;
+    padding: 0;
+}
+#fcrud input {
+    float: right;
+}
+*/
+
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> form */
+
+#sql_generator, #sql_generator_per {
+    float: left;
+    width:480px;
+    background-color: #F9F9F9;
+    padding-left: 5px;
+    margin-top: 25px;
+    clear: both;
+}
+#sql_generator_per {
+    margin-bottom: 30px;
+}
+#div_funcion span, #div_create span, #div_conector_global span,
+#div_funcion_per span, #div_create_per span {
+    float: left;
+    width: 190px;
+    text-decoration:underline;
+    font-weight: bold;
+    
+    /*font-family: arial,sans-serif;
+    font-size: 14px; */
+}
+#funcionsql, #nprocd, #conntg, #nprocd_per {
+    width: 200px;
+}
+
+#div_sql textarea, #sql_generator_per textarea.crud_per {
+    resize: none;
+    max-width: 95%;
+    min-width: 95%;
+    /*max-height: 80%;
+    min-height: 80%; */
+    font-weight: bold;
+    font-family: Consolas,monaco,monospace;
+    font-size: 14px;
+}
+
+#campos, #camposr, #sql_text {
+    margin-top: 6px;
+}
+#campos label {
+    float: left;
+    padding-left: 5px;
+    width: 150px;
+}
+#camposr label {
+    float: left;
+    padding-left: 5px;
+    width: 150px;
+}
+#div_campos_normal, #div_campos_rest, #div_sql {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+#div_campos_rest {
+    margin-bottom: 14px;
+}
+#campos, #div_buttons_campos {
+    float: left;
+    width: 100%;
+}
+#camposr, #div_conector, #div_buttons_rests {
+    float: left;
+    width: 100%;
+}
+#div_buttons_campos, #div_conector, #div_buttons_rests {
+    margin-top: 6px;
+}
+#div_buttons_campos input, #div_buttons_rests input, #div_sql input {
+    margin-left: 5px;
+    width: 70px;
+}
+
+/* >>> Inside div_encendido */
+
+#bar {
+    /* border: 1px solid #000000; */
+    width: 72px;
+    height: 17px;
+}
+#side_left {
+    float: left;
+    width: 44px;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 4px;
+    background-color: #000000;
+}
+#side_right {
+    float: right;
+    width: 24px;
+    height: 100%;
+    background-color: #000000;
+}
+#label {
+    color: #ffffff;
+}
+#button {
+    float: right;
+    width: 24px;
+    height: 100%;
+}
+
+/* >>> Menu flotante sesion de usuario */
+
+#div_pulse {
+    width: 16px;
+    height: 16px;
+    float: right;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 264px;
+}
+#div_pulse:hover {
+    cursor: pointer;
+}
+#menufloat {
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    right: 15px;
+    top: 36px;
+    position: absolute;
+    margin-top: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;				
+    width: 160px;
+    z-index: 100;
+}
+
+.header-nav-current-user {
+    font-size: inherit;
+    padding-bottom: 0;
+}
+.dropdown-header {
+    color: #767676;
+    font-size: 12px;
+    padding: 4px 15px;
+}
+.dropdown-divider {
+    background-color: #e5e5e5;
+    height: 1px;
+    margin: 8px 1px;
+}
+.dropdown-signout {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    text-align: left;
+    width: 100%;
+}
+.dropdown-item {
+    color: #333;
+    display: block;
+    overflow: hidden;
+    padding: 4px 10px 4px 15px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.dropdown-item:hover {
+    background-color: #4078c0;
+    color: #fff;
+    text-decoration:none;
+}
+.logout-form {
+    padding: 0;
+    margin: 0;
+}
+
+/* >>> Botones y divs de informacion */
+button.info {
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    /*padding-left: 16px;      make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    color: #FFF;
+    
+    background-image: url(/images/info-16.png); /* 16px x 16px */
+}
+button.infog {
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    /*padding-left: 16px;      make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    color: #FFF;
+    
+    background-image: url(/images/info-16-grey.png); /* 16px x 16px */
+}
+button.in_table {
+    margin-left: 4px;
+}
+button.in_form {
+    float:left;
+}
+button.in_crud {
+    margin-left: 4px;
+}
+#div_form button.in_form {
+    width: 16px;
+    margin-right: 8px;
+}
+#div_info_barra {
+    width: 16px;
+    height: 16px;
+    float: left;
+    padding: 0;
+    margin: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+div.info_case {
+    bottom: 2;
+    right: 2;
+    position: fixed;
+    height: 196px;
+    width: 368px;
+    padding: 4px 4px 4px 4px;
+    z-index: 100;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    
+    font-family: verdana,sans-serif;
+    font-size: 11px;
+    
+    /*
+    background-clip: padding-box;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    right: 2px;
+    bottom: 2px;
+    position: absolute;
+    margin-top: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;				
+    width: 256px;
+    height: 128px;
+    z-index: 100;
+    */
+}
+
+/* >>> Registro de usuario */
+
+#formreg, #formlogin {
+    /* width: 800px; */
+    width: 464px;
+    /* height: 436px; */
+    border: 1px solid black;
+    padding-top: 15px;
+    padding-left: 15px;
+    position: absolute;
+    left:50%;
+    margin-left: -232px;
+    margin-left: -240px;
+    display: table-cell;
+}
+
+#formreg input, #formlogin input {
+    width: 80%;
+}
+#formreg textarea, #formlogin textarea {
+    width: 80%
+}
+
+span.info {
+    float:right;
+    padding-right: 12%;
+}
+span.todo {
+    float: left;
+    /* width:50%; */
+    width: 100%;
+    margin-top: 7px;
+}
+span.titulo {
+    float: left;
+    width: 40%;
+}
+span.entrada {
+    float: right;
+    width: 60%;
+}
+span.envio {
+    float:left;
+    width: 50%;
+    padding-left:30%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#entradain input {
+    width: 16px;
+}
+#divmsg {
+    float: left;
+    margin-left: 20px;    
+    margin-top: 10px;
+    width: 80%;
+    
+    font-family: verdana,sans-serif;
+    font-size: 11px;
+}
+#divmsg span {
+    color:red;
+}
+
+body {
+    /*
+    padding: 0;
+    margin: 0;
+    */
+    background: #F9F9F9;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #333333;
+}
+
+#cont {
+    width: 1416px;
+    /* height: 1024px; */
+    position: center;
+    overflow: hidden;
+    margin: 0 auto;
+}
+#central {
+    /* border: 1px solid #7C7C7C; */
+    background: #F9F9F9;
+}
+
+#msg_cruderror, #msg_crudper_error {
+    padding-top: 6px;
+    height: 12px;
+    width: 95%;
+    font-family: verdana,sans-serif;
+    font-size: 11px;
+    float: left;
+}
+#msg_cruderror p, #msg_crudper_error p {    
+    display: inline;
+    color: red;
+}
+
+/* >>> form crud personalizado */
+
+#div_create_per span.long {
+    width: 220px;
+}
+
+#div_create_per span.simple {
+    text-decoration: none;
+    font-weight: normal;
+    font-family: verdad,sans-serif;
+    font-size: 11px;
+}
+
+#div_create_per span.pos {
+    float: left;
+    clear: left;
+}
+
+#lstmatch {
+    width: 95%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    height: 24px;
+    font-family: verdad,sans-serif;
+    font-size: 11px;
+    float: left;
+}
+
+#tabla_crud th.titulo {
+    background: #000000;
+    color: #ffffff;
+}
+
+#tabla_crud_per th.titulo {
+    background: #000000;
+    color: #ffffff;
+}
+
+#div_campos_text, #div_rests_text, #div_sql_text {
+    float:left;
+    margin-top: 4px;
+}
+
+#info_crudper_defsql {
+    overflow-y: auto;
+}

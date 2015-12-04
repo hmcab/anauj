@@ -1,0 +1,167 @@
+
+/* Edit your css file. */
+
+body {
+    /* width: 100%; */
+    width: 1280px;
+    max-width: 100%;
+    font-family: verdana,sans-serif;
+    font-size: 11px;
+    font-variant: normal;
+    text-align: left;
+}
+
+form {
+    padding-top: 30px;
+    padding-left: 20px;
+    display: inline-block;
+}
+
+#div-menu {
+    width: 80%;
+}
+
+#div-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+#div-menu ul li {
+    display: inline;
+}
+#div-menu ul li a {
+    text-decoration: none;
+    /*padding-left: 5px;
+    padding-right: 5px;*/
+    padding: .2em 1em;
+    color: #fff;
+    background-color: #036;
+}
+#div-menu ul li a:hover {
+    color: #fff;
+    background-color: #369;
+}
+
+#div-form-buttons {
+    float: left;
+    width: 80%;
+    padding-left: 80px;
+}
+
+#msgrest-container {
+    float: left;
+    width: 80%;
+    height: 40px;
+}
+
+#msgrest {
+    float: left;
+    width: 512px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-top: 5px;
+    padding-left: 10px;
+    border: 1px solid #d8000c;
+    background-color: #ffbaba;
+    color: #d8000c;
+}
+
+#form-real {
+    padding-top: 15px;
+    padding-left: 20px;
+    float: left;
+    width: 80%;
+}
+#form-real div {
+    float: left;
+    height: 24px;
+    width: 432px;
+    padding-bottom: 3px;
+}
+#form-real span.titulo {
+    /*float: left;
+    width: 25px;*/
+    float: left;
+    width: 72px;
+    display: inline-block;
+    
+}
+#form-real div.date {
+    float: left;
+    width: 80%;
+}
+#form-real input {
+    border: 1px solid rgb(0,0,102);
+}
+
+/*
+#div-table-form {
+    float: left;
+    width: 80%;
+    padding-top: 30px;
+    padding-left: 20px;
+    font-variant: normal;
+}
+#div-table-form table {
+    background-color: #f9f9f9;
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    font-family: verdana, sans-serif;
+    font-size: 13px;
+    width: 1024;
+}
+#div-table-form table tr {
+    border: 1px solid #aaa;
+}
+#div-table-form table td {
+    border-left: 1px solid #aaa;
+    padding-right: 14px;
+}
+*/
+
+#div-table-response {
+    float: left;
+    width: 80%;
+    padding-top: 15px;
+    padding-left: 20px;
+    font-variant: normal;
+}
+#div-tableselect-all {
+    float: left;
+    width: 80%;
+    padding-top: 15px;
+    padding-left: 20px;
+    font-variant: normal;
+}
+#div-tableselect-all table, #div-table-response table {
+    background-color: #f9f9f9;
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    font-family: verdana, sans-serif;
+    font-size: 13px;
+    width: 1024;
+}
+#div-tableselect-all table tr, #div-table-response table tr {
+    border: 1px solid #aaa;
+}
+#div-tableselect-all table td, #div-table-response table td {
+    border-left: 1px solid #aaa;
+    padding-right: 14px;
+}
+
+#message {
+    float: left;
+    width: 80%;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+#message span {
+    color: red;
+}
+
+textarea {
+    min-height: 20px;
+    max-height: 20px;
+}

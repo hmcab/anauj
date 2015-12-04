@@ -1,0 +1,433 @@
+
+nprocd = null;
+ntable = null;
+funcsql = null;
+camposql = null;
+restsql = null;
+boolidx = false;
+gidx = -1;
+
+function seleccion_funcion()
+{
+	var func = document.getElementById("funcionsql").value;
+	if (func != null && func != "") {
+		funcsql = func;
+		mostrar_componente("div_create", true);
+	} else {
+		funcsql = null;
+		mostrar_componente("div_create", false);
+	}
+	
+	var table = document.getElementById("ntable").value;
+	ntable = table;
+	//var str = "abc,def,ghi,jkl";
+	//var lastc = str.lastIndexOf(",");
+	//str = str.substr(0,lastc);
+	//alert(str);
+}
+
+function mostrar_componente(create, show) 
+{
+	var create = document.getElementById(create);
+	if (show) {
+		create.style.display = "block";
+	} else {
+		create.style.display = "none";
+	}
+}
+
+function addcampo()
+{
+	var campos = document.getElementById("campos");
+	var icampos = campos.getElementsByTagName("input");
+	var str = "";
+	for (var i=0; i<icampos.length; i++) {
+		if (icampos[i].checked) {
+			if (str == "") {
+				str = icampos[i].value;
+			} else {
+				str += "," + icampos[i].value;
+			}					
+		}
+	}
+	if (camposql == null || camposql == "") {
+		camposql = str;
+	} else {
+		camposql += "," + str;
+	}
+	
+	// resturamos graficamente los campos
+	for (var i=0; i<icampos.length; i++) {
+		icampos[i].checked = false;
+	}
+	
+	parsetosql();
+}
+
+function addrestriccion()
+{
+	var camposr = document.getElementById("camposr");
+	var icamposr = camposr.getElementsByTagName("input");
+	
+	var connt = document.getElementById("div_conector");
+	var iconnt = connt.getElementsByTagName("input");
+	
+	var ct = "";
+	if (iconnt[0].checked) {
+		ct = iconnt[0].value;
+	} else if (iconnt[1].checked) {
+		ct = iconnt[1].value;
+	} else {
+		ct = "AND";
+	}
+	ct += ",";
+	
+	var str = ""; var ncmp = 0;
+	for (var i=0; i<icamposr.length; i++) {
+		if (icamposr[i].checked) {
+			if (str == "") {
+				str = icamposr[i].value;
+			} else {
+				str += "," + icamposr[i].value;
+			}
+			ncmp += 1;
+		}
+	}
+	if (ncmp > 1) {
+		str = ct + str;
+	} else {
+		str = str;
+	}
+	
+	if (str != null && str != "") {
+		if (restsql == null || restsql == "") {
+			restsql = str;
+		} else {
+			restsql += ";" + str;
+		}
+	}
+
+	// resturamos graficamente los campos
+	for (var i=0; i<icamposr.length; i++) {
+		icamposr[i].checked = false;
+	}
+	iconnt[0].checked = false;
+	iconnt[1].checked = false;
+	
+	parsetosql();
+}
+
+function remcampo()
+{
+	if (camposql != null & camposql != "") {
+		if (camposql.indexOf(",")) {
+			var lastcomma = camposql.lastIndexOf(",");
+			var newcamposql = camposql.substr(0, lastcomma);
+			camposql = newcamposql;				
+		} else {
+			camposql = "";
+		}
+	}
+	parsetosql();
+}
+
+function remrestriccion()
+{
+	if (restsql != null && restsql != "") {
+		if (restsql.indexOf(";")) {
+			var lastsemicomma = restsql.lastIndexOf(";");
+			var newrestsql = restsql.substr(0,lastsemicomma);
+			restsql = newrestsql;
+		} else {
+			restsql = "";
+		}
+	}
+	parsetosql();
+}
+
+function parsetosql()
+{
+	var sql = "";
+	sql = funcsql;
+	
+	if (camposql != null && camposql != "") {
+		if (camposql.indexOf(",")) {
+			var arrayc = camposql.split(",");
+			sql += " " + arrayc[0];
+			for (var i=1; i<arrayc.length; i++) {
+				sql += ", " + arrayc[i];
+			}
+		} else {
+			sql += " " + camposql;
+		}
+	}
+	
+	sql += " FROM " + ntable;
+	
+	if (restsql != null && restsql != "") {
+		if (restsql.indexOf(";")) {
+			var arrayr = restsql.split(";");
+			var rs = "";
+			for (var i=0; i<arrayr.length; i++) {
+				var r = arrayr[i]; var r2 = "";
+				if (r.indexOf(",")) {
+					var arrayr2 = r.split(",");
+					r2 = "(" + arrayr2[0];
+					for (var j=1; j<arrayr2.length; j++) {
+						r2 += " " + arrayr2[j];
+					}
+					r2 += ")";
+				} else {
+					r2 = r;
+				}
+				
+				if (rs == "") {
+					rs = r2;
+				} else {
+					rs += " AND " + r2;
+				}
+			}
+			sql += " WHERE " + rs;
+		} else {
+			sql += " WHERE " + restsql;
+		}				
+	}
+	
+	if ((camposql == null || camposql == "") &&
+		(restsql == null || restsql == "")) {
+			sql = "";		
+	}
+	
+	document.getElementById("sql_text").innerHTML = sql;
+}
+
+function parsetosqlgui()
+{
+	var nfuncsql = funcsql;
+	var lst = document.getElementById("funcionsql").options;
+	var size = lst.length;
+	
+	for (var i=0; i<size; i++) {
+		if (lst[i].value == funcsql) {
+			document.getElementById("funcionsql").options[i].selected = 'selected';
+		}
+	}
+	
+	document.getElementById("nprocd").value = nprocd;
+	document.getElementById("sql_text").innerHTML = "";			
+	parsetosql();
+}
+
+// NombreID&Nombre_tabla&Sentencia_SQL&Campos&Restricciones (5)
+// NOMID&NTABLA&INSERT&CAMPO1,CAMPO2&AND,CAMPO1,CAMPO2;OR,CAMPO3,CAMPO4;CAMPO5
+// camposql = campo1,campo2,...,campoN
+// restsql = rest1;AND,rest2,rest3;OR,rest4,rest5;rest6
+
+// Tabla de sentencias CRUD
+
+crud = null;
+
+function render_table()
+{
+	var divtable = document.getElementById("div_table");
+	var tablecrud = document.getElementById("table_crud");
+	
+	if (tablecrud != null)
+		divtable.removeChild(tablecrud);
+	
+	var table = document.createElement("table");
+	table.setAttribute("id", "table_crud");
+	table.setAttribute("name", "table_crud");
+	var thead = document.createElement("thead");
+	var tbody = document.createElement("tbody");
+	
+	if (crud != null)
+	{
+		var head = ["N", "Nombre de operacion", "Nombre de la tabla", "Tipo de operacion"];
+		var size = crud.length;
+		var tr = document.createElement("tr");
+		for (var j=0; j<head.length; j++) {
+			var th = document.createElement("th");
+			th.appendChild(document.createTextNode(head[j]));
+			tr.appendChild(th);
+		}
+		tr.appendChild(document.createElement("th")); // editar
+		tr.appendChild(document.createElement("th")); // eliminar
+		thead.appendChild(tr);
+		table.appendChild(thead);
+		
+		for (var i=0; i<size; i++) {
+			var tr = document.createElement("tr");
+			
+			// indice
+			var tdn = document.createElement("td");
+			tdn.appendChild(document.createTextNode(i+1));
+			tr.appendChild(tdn);
+			
+			// campos (nprocd ntable funcsql -camposql -restsql)
+			var datacrud = crud[i].split("&");
+			var sizecdc = 3;
+
+			for (var j=0; j<sizecdc; j++) {
+				var td = document.createElement("td");
+				td.appendChild(document.createTextNode(datacrud[j]));
+				tr.appendChild(td);
+			}
+			
+			// edit - del
+			var tde = document.createElement("td");
+			var tdd = document.createElement("td");
+			var edit = document.createElement("button");
+			var del = document.createElement("button");
+			
+			edit.appendChild(document.createTextNode("editar"));
+			del.appendChild(document.createTextNode("eliminar"));
+			edit.setAttribute("onclick", "edit_func("+i+");");
+			del.setAttribute("onclick", "del_func("+i+");");
+			
+			tde.appendChild(edit);
+			tdd.appendChild(del);
+			
+			tr.appendChild(tde);
+			tr.appendChild(tdd);
+			
+			//edit.onclick = edit_func;
+			//del.onclick = del_func;
+			
+			tbody.appendChild(tr);
+		}
+		table.appendChild(tbody);
+		divtable.appendChild(table);
+	}
+}
+
+function addsql(str) 
+{
+	if (crud == null) {
+		crud = new Array();
+		crud[0] = str;
+	} else {
+		size = crud.length;
+		ncrud = new Array(size);
+		for (var i=0; i<size; i++) {
+			ncrud[i] = crud[i];
+		}
+		crud = new Array(size+1);
+		for (var i=0; i<size; i++) {
+			crud[i] = ncrud[i];
+		}
+		crud[i] = str;
+	}
+	render_table();
+}
+
+function modsql(str, idx) 
+{
+	if (crud != null) {
+		crud[idx] = str;
+	}
+}
+
+function edit_func(idx)
+{
+	// var head = ["N", "Nombre de operacion", "Nombre de la tabla", "Tipo de operacion"];
+	// campos (nprocd ntable funcsql -camposql -restsql)
+	nprocd = ntable = funcsql = camposql = restsql = null;
+	boolidx = true;
+	gidx = idx;
+	
+	if (crud != null)
+	{
+		var data = crud[idx].split("&");
+		
+		nprocd = data[0];
+		ntable = data[1];
+		funcsql = data[2];
+		camposql = data[3];
+		
+		if (data.length > 4) {
+			restsql = data[4];
+		}
+		parsetosqlgui();
+		mostrar_componente("div_create", true);
+	}
+}
+
+function del_func(idx)
+{
+	if (crud != null)
+	{				
+		size = crud.length;
+		if (size > 1) {
+			var ncrud = new Array(size-1);
+			var j=0;
+			
+			for (var i=0; i<size; i++) {
+				if (i == idx) {
+					continue;
+				} else {
+					ncrud[j] = crud[i];
+					j++;
+				}
+			}
+			crud = new Array(size-1);
+			for (var i=0; i<size-1; i++) {
+				crud[i] = ncrud[i];
+			}
+		} else {
+			crud = null;
+		}
+	}
+	render_table();
+	reset_gui();
+}
+
+function save_sql()
+{
+	nprocd = document.getElementById("nprocd").value;
+	
+	if ((nprocd != null && nprocd != "") &&
+		(ntable != null && ntable != "") &&
+		(funcsql != null && funcsql != "") &&
+		(camposql != null && camposql != "")) 
+	{
+		var sqlf = nprocd +"&"+ ntable +"&"+ funcsql +"&"+ camposql;
+		if (restsql != null && restsql != "") {
+			sqlf += "&" + restsql;
+		}
+		
+		if (boolidx && gidx >= 0) {
+			modsql(sqlf,gidx);
+		} else {
+			addsql(sqlf);
+		}
+			
+		reset_gui();
+	}		
+}	
+
+function cancel_sql()
+{
+	reset_gui();
+}
+
+function reset_gui()
+{
+	nprocd = null;
+	ntable = null;
+	camposql = null;
+	restsql = null;
+	boolidx = false;
+	gidx = -1;
+	
+	document.getElementById("funcionsql").options[0].selected = 'selected';
+	document.getElementById("nprocd").value = "";
+	document.getElementById("sql_text").innerHTML = "";
+	
+	mostrar_componente("div_create", false);
+}
+
+function init()
+{
+	mostrar_componente("div_create", false);
+}
